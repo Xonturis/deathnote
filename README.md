@@ -6,12 +6,15 @@ Create a file `config.json` in the same folder containing the project.
 Example `config.json`:
 ```
 {
-    "username": "E19.....",
+    "username": "E.......",
     "password": "unicornsareawesome",
     "token": "thetokenishouldnthavepushed",
     "channel_id": "12345678910"
 }
 ```
+
+# Installation
+`sudo npm install`
 
 # Usage
 `node deathnote.js`
