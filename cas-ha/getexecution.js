@@ -18,19 +18,19 @@ function get_execution() {
             res.on('data', d => {
                 body.push(d);
             })
-            res.on('end', function() {
+            res.on('end', function () {
                 try {
                     body = Buffer.concat(body).toString();
                     execution = body.match(execution_regexp)[1]
                     resolve(execution);
-                } catch(e) {
+                } catch (e) {
                     reject(e);
                 }
             })
         })
-        
+
         req.on('error', error => {
-          reject(error)
+            reject(error)
         })
         req.end()
     })
@@ -38,4 +38,3 @@ function get_execution() {
 
 
 module.exports = get_execution
-

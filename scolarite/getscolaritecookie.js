@@ -3,7 +3,7 @@ const get_cookies_and_redirect = require('../cas-ha/getcookiesandredirect')
 
 
 async function get_scolarite_cookie() {
-  return new Promise(async(resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const ticket_url = await get_cookies_and_redirect()
     const get_ticket = {
       hostname: 'scolarite.polytech.univ-nantes.fr',
