@@ -1,8 +1,9 @@
-const get_cookies_and_redirect = require('./cas-ha/getcookiesandredirect')
+const get_scolarite = require('./scolarite/getscolarite')
 
-async function get_notes_page() {
-  const fetched = await get_cookies_and_redirect()
-  console.log(fetched)
+
+async function printhtml() {
+    const page = await get_scolarite()
+    console.log(page)
 }
 
-get_notes_page()
+printhtml()

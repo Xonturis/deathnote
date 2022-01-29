@@ -40,10 +40,7 @@ async function get_cookies_and_redirect() {
     }
 
     const req = https.request(auth_options, res => {
-        const fetched = {
-            cookies: res.headers['set-cookie'],
-            redirect: res.headers.location
-        }
+        const fetched = res.headers.location
         resolve(fetched)
     })
 
