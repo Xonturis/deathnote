@@ -11,7 +11,7 @@ const execution_regexp = /<input type="hidden" name="execution" value="([^"]*)"/
 
 // See: https://stackoverflow.com/questions/19539391/how-to-get-data-out-of-a-node-js-http-get-request
 
-module.exports = function get_execution() {
+function get_execution() {
     return new Promise((resolve, reject) => {
         const req = https.request(auth_options, res => {
             var body = [];
@@ -35,4 +35,7 @@ module.exports = function get_execution() {
         req.end()
     })
 }
+
+
+module.exports = get_execution
 
