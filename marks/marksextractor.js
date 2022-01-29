@@ -22,13 +22,7 @@ function get_last_marks() {
     return new Promise((resolve, reject) => {
         try {
             fs.readFile('../last_marks', 'utf-8', (err, data) => {
-                try {
-                    let marks = JSON.parse(data)
-                    resolve(marks)
-                } catch (e) {
-                    reject(e)
-                }
-
+                resolve(JSON.parse(data))
             })
         } catch (e) {
             reject(e)

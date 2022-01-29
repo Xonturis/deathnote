@@ -13,7 +13,7 @@ Example `config.json`:
 }
 ```
 
-Create a file `last_marks` next to `config.json` and simply put `[]` inside.
+Create a file `last_marks` next to `config.json` and simply put `0` inside.
 
 # Installation
 `sudo npm install`

@@ -7,8 +7,7 @@ const {token, channel_id} = require('../config.json')
 let marks_update_channel = undefined
 
 function send_update(diff) {
-    let count_new = diff.length
-    let message = `Yay, il y a **${count_new}** nouvelle(s) note(s), vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
+    let message = `Yay, il y a **${diff}** nouvelle(s) note(s), vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
     marks_update_channel.send(message)
 }
 
@@ -16,7 +15,7 @@ async function fetch_get_diff_update() {
     let page = await get_scolarite()
     let diff = await get_diff_and_save(page)
 
-    if(diff.length > 0 && marks_update_channel !== undefined) {
+    if(diff > 0 && marks_update_channel !== undefined) {
         send_update(diff)
     }
 
