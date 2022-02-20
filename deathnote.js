@@ -1,24 +1,29 @@
-const get_diff_and_save = require('./marks/getdiffandsavemarks')
-const get_scolarite = require('./scolarite/getscolarite')
+const get_updates_and_save = require('./scolarite/getscolarite')
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 const {token, channel_id} = require('../config.json')
 
 let marks_update_channel = undefined
 
-function send_update(diff) {
-    let message = `Yay, il y a **${diff}** nouvelle(s) note(s), vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
+function send_update_single(text) {
+    let message = `Yay, il y a une nouvelle note en **${text}**, vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
+    marks_update_channel.send(message)
+}
+
+function send_update_multiple(text) {
+    let message = `Yay, il y a des nouvelles notes en **${text}**, vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
     marks_update_channel.send(message)
 }
 
 async function fetch_get_diff_update() {
-    let page = await get_scolarite()
-    let diff = await get_diff_and_save(page)
+    let subject_update = await get_updates_and_save()
 
-    if(diff > 0 && marks_update_channel !== undefined) {
-        send_update(diff)
+    let text = subject_update.join(", ")
+    if(subject_update.length === 1) {
+        send_update_single(text)
+    }else if (subject_update.length > 1) {
+        send_update_multiple(text)
     }
-
 }
 
 
