@@ -1,44 +1,43 @@
-const get_updates_and_save = require('./scolarite/getscolarite')
-const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-const {token, channel_id} = require('../config.json')
+const getUpdatesAndSave = require('./scolarite/getscolarite')
+const { Client, Intents } = require('discord.js')
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
+const config = require('../config.json')
+const token = config.token
+const channelId = config.channel_id
 
-let marks_update_channel = undefined
+let marksUpdateChannel
 
-function send_update_single(text) {
-    let message = `Yay, il y a une nouvelle note en **${text}**, vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
-    marks_update_channel.send(message)
+function sendUpdateSingle (text) {
+  const message = `Yay, il y a une nouvelle note en **${text}**, vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
+  marksUpdateChannel.send(message)
 }
 
-function send_update_multiple(text) {
-    let message = `Yay, il y a des nouvelles notes en **${text}**, vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
-    marks_update_channel.send(message)
+function sendUpdateMultiple (text) {
+  const message = `Yay, il y a des nouvelles notes en **${text}**, vas donc voir, tu es trop curieux pour en rester là.\n\>\>\>\> https://scolarite.polytech.univ-nantes.fr/`
+  marksUpdateChannel.send(message)
 }
 
-async function fetch_get_diff_update() {
-    let subject_update = await get_updates_and_save()
+async function fetchGetDiffUpdate () {
+  const subjectUpdate = await getUpdatesAndSave()
 
-    let text = subject_update.join(", ")
-    if(subject_update.length === 1) {
-        send_update_single(text)
-    }else if (subject_update.length > 1) {
-        send_update_multiple(text)
-    }
+  const text = subjectUpdate.join(', ')
+  if (subjectUpdate.length === 1) {
+    sendUpdateSingle(text)
+  } else if (subjectUpdate.length > 1) {
+    sendUpdateMultiple(text)
+  }
 }
-
 
 client.on('ready', (client) => {
-    client.channels.fetch(channel_id).then(channel => {
-        marks_update_channel = channel
-    })
+  client.channels.fetch(channelId).then(channel => {
+    marksUpdateChannel = channel
+  })
 })
 
+client.login(token)
 
-client.login(token);
-
-fetch_get_diff_update()
+fetchGetDiffUpdate()
 
 setInterval(() => {
-    fetch_get_diff_update()
-}, 7200000);
-
+  fetchGetDiffUpdate()
+}, 7200000)
