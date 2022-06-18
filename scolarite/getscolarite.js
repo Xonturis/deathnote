@@ -118,7 +118,7 @@ async function getDptMarksCheerio (dpt, maq) {
         reject(error)
       })
       req.end()
-    })
+    }).catch((reason) => console.log(reason))
   })
 }
 
@@ -155,7 +155,7 @@ async function getScolariteCheerio () {
         reject(error)
       })
       req.end()
-    })
+    }).catch((reason) => console.log(reason))
   })
 }
 

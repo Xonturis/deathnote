@@ -50,7 +50,7 @@ async function getCookiesAndRedirect () {
       })
 
       req.end(data.toString())
-    })
+    }).catch((reason) => console.log(reason))
   })
 }
 

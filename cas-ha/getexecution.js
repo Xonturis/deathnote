@@ -21,16 +21,12 @@ function getExecution () {
         body.push(d)
       })
       res.on('end', function () {
-        try {
-          body = Buffer.concat(body).toString()
-          const matchResult = body.match(executionRegexp)
-          if (matchResult == null || matchResult === undefined) {
-            reject(new Error('Expression not found.'))
-          } else {
-            resolve(matchResult[1])
-          }
-        } catch (e) {
-          reject(e)
+        body = Buffer.concat(body).toString()
+        const matchResult = body.match(executionRegexp)
+        if (matchResult == null || matchResult === undefined) {
+          reject(new Error('Expression not found.'))
+        } else {
+          resolve(matchResult[1])
         }
       })
     })

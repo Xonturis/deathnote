@@ -21,7 +21,7 @@ async function getScolariteCookie () {
       })
       req.end()
     })
-  })
+  }).catch((reason) => console.log(reason))
 }
 
 module.exports = getScolariteCookie
