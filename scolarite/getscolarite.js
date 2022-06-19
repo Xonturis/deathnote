@@ -67,6 +67,11 @@ function extractSubjectMarksMapping (bodyString) {
 
 function getDptId ($) {
   const dptIdEl = $('#dpt')[0]
+
+  if (dptIdEl === undefined) {
+    return undefined
+  }
+
   const dptId = dptIdEl.attribs.value
   return dptId
 }
@@ -205,6 +210,11 @@ async function getUpdatesAndSave () {
     try {
       getScolariteCheerio().then($ => {
         const id = getDptId($)
+
+        if (id === undefined) {
+          reject(new Error('No dpt id found'))
+        }
+
         const promises = []
         for (const idMaq of getMaqMap($)) {
           const maq = idMaq[0]

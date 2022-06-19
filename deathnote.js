@@ -18,14 +18,16 @@ function sendUpdateMultiple (text) {
 }
 
 async function fetchGetDiffUpdate () {
-  const subjectUpdate = await getUpdatesAndSave()
-
-  const text = subjectUpdate.join(', ')
-  if (subjectUpdate.length === 1) {
-    sendUpdateSingle(text)
-  } else if (subjectUpdate.length > 1) {
-    sendUpdateMultiple(text)
-  }
+  getUpdatesAndSave().then(subjectUpdate => {
+    const text = subjectUpdate.join(', ')
+    if (subjectUpdate.length === 1) {
+      sendUpdateSingle(text)
+    } else if (subjectUpdate.length > 1) {
+      sendUpdateMultiple(text)
+    }
+  }).catch(err => {
+    console.log(err)
+  })
 }
 
 client.on('ready', (client) => {
