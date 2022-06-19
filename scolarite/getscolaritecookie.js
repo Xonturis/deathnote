@@ -5,6 +5,9 @@ async function getScolariteCookie () {
   return new Promise((resolve, reject) => {
     const ticketUrl = getCookiesAndRedirect()
     ticketUrl.then(ticketUrlResult => {
+      if (ticketUrlResult === undefined) {
+        reject(new Error('ticetUrlResult is null'))
+      }
       const getTicket = {
         hostname: 'scolarite.polytech.univ-nantes.fr',
         port: 443,
