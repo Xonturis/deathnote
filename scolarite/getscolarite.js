@@ -10,7 +10,11 @@ function extractAllMarksName (bodyString) {
   return new Promise((resolve, reject) => {
     parser.parseString(bodyString, function (error, result) {
       if (error === null) {
-        resolve(extractSubjectMarksMapping(result.datas.data[0].ATTR.value))
+        if (result.datas === undefined) {
+          reject(new Error('result empty'))
+        } else {
+          resolve(extractSubjectMarksMapping(result.datas.data[0].ATTR.value))
+        }
       } else {
         reject(error)
       }
@@ -199,9 +203,9 @@ async function getMaqUpdates (id, maq) {
           saveMarks(id, maq, newMarks)
 
           resolve(subjectUpdate)
-        })
-      })
-    })
+        }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
+    }).catch(err => console.log(err))
   })
 }
 
